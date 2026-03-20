@@ -1,6 +1,6 @@
-## Hi there is remade👋
+## Hi there is readme👋
 * requirement
-> >pip install-r requirement.text
+>pip install-r requirement.text
 
 <!--
 **wojiaoxiuer/wojiaoxiuer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
