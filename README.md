@@ -4,15 +4,15 @@
 
 ## requirement  
 
->*pip install-r requirement.text*
+>>pip install-r requirement.text
 
 ## train your model  
 
->run train.py
+>>run train.py
 
 ## dataset load  
 
->(https://www.med.upenn.edu/cbica/brats2021/)  
+>>(https://www.med.upenn.edu/cbica/brats2021/)  
 <!--
 **wojiaoxiuer/wojiaoxiuer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
