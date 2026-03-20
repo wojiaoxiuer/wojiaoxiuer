@@ -18,3 +18,4 @@ labelimg
 pandas==2.2.3
 seaborn==0.13.2
 psutil==6.0.0
+pywt
