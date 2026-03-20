@@ -6,7 +6,7 @@
 
 ```
 
->**pip install-r requirement.text**
+>pip install-r requirement.text
 ```
 ## train your model  
 
