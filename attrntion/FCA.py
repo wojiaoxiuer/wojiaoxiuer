@@ -18,8 +18,7 @@ class Mix(nn.Module):
 class FCAttention(nn.Module):
     def __init__(self,channel,b=1, gamma=2):
         super(FCAttention, self).__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)#全局平均池化
-        #一维卷积
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
         t = int(abs((math.log(channel, 2) + b) / gamma))
         k = t if t % 2 else t + 1
         self.conv1 = nn.Conv1d(1, 1, kernel_size=k, padding=int(k / 2), bias=False)
@@ -44,7 +43,7 @@ class FCAttention(nn.Module):
         out = self.sigmoid(out)
         return input*out
 
-# 输入 N C H W,  输出 N C H W
+
 if __name__ == '__main__':
     input = torch.rand(1,64,256,256)
     model = FCAttention(channel=64)
