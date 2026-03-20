@@ -11,13 +11,13 @@ from PIL import Image
 class Config:
     data_root = "Bra21"
     weight_dir = "weight"
-    batch_size = 4  # 每组4个样本，每个样本4张图
+    batch_size = 4  
     img_size = 224
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     class_names = ['negative', 'positive']
 
 
-# 复用训练时的数据预处理
+
 transform = transforms.Compose([
     transforms.Resize((Config.img_size, Config.img_size)),
     transforms.ToTensor(),
@@ -70,21 +70,21 @@ def collate_fn(batch):
 
 
 def evaluate():
-    # 自动查找最新权重文件
-    weight_files = [f for f in os.listdir(Config.weight_dir) if f.startswith("best_20250401_115707.pth")]
+    
+    weight_files = [f for f in os.listdir(Config.weight_dir) if f.startswith("best weight")]#自己输入
     if not weight_files:
         raise FileNotFoundError("No best weight file found in weights directory")
 
-    # 按时间戳排序获取最新文件
+   
     latest_weight = sorted(weight_files, key=lambda x: x.split("_")[2], reverse=True)[0]
     weight_path = os.path.join(Config.weight_dir, latest_weight)
 
-    # 初始化模型
+   
     model = create_ConvNext('ConvNeXt_tiny', num_classes=2).to(Config.device)
     model.load_state_dict(torch.load(weight_path))
     model.eval()
 
-    # 准备数据集
+    
     test_dataset = QuadModalDataset(Config.data_root)
     test_loader = DataLoader(
         test_dataset,
@@ -108,7 +108,7 @@ def evaluate():
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
 
-    # 计算指标
+    
     accuracy = accuracy_score(all_labels, all_preds)
     precision = precision_score(all_labels, all_preds)
     recall = recall_score(all_labels, all_preds)
