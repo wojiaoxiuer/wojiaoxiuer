@@ -11,21 +11,21 @@ from model import create_ConvNext
 from tqdm import tqdm
 
 
-# 配置参数
+
 class Config:
     data_root = "Bra21"
     weight_dir = "weight"
     num_workers = 2
-    batch_size = 1  # 每组8个样本，每个样本4张图
-    num_epochs = 50
-    lr = 0.0005
+    batch_size =   
+    num_epochs = 
+    lr = 0.0001
     weight_decay = 0.01
     img_size = 224
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     class_names = ['negative', 'positive']
 
 
-# 数据预处理
+
 transform = transforms.Compose([
     transforms.Resize((Config.img_size, Config.img_size)),
     transforms.ToTensor(),
@@ -76,15 +76,15 @@ def collate_fn(batch):
 
 
 def train():
-    # 初始化环境
+    
     os.makedirs(Config.weight_dir, exist_ok=True)
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     best_weight_file = f"best_{timestamp}.pth"
 
-    # 初始化模型
+    
     model = create_ConvNext('ConvNeXt_tiny', num_classes=2).to(Config.device)
 
-    # 数据集和数据加载器
+    
     full_dataset = QuadModalDataset(Config.data_root)
     loader = DataLoader(
         full_dataset,
@@ -94,7 +94,7 @@ def train():
         collate_fn=collate_fn
     )
 
-    # 优化器和损失函数
+    
     optimizer = optim.AdamW(model.parameters(), lr=Config.lr, weight_decay=Config.weight_decay)
     criterion = nn.CrossEntropyLoss()
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=Config.num_epochs)
@@ -102,7 +102,7 @@ def train():
     best_train_acc = 0.0
 
     for epoch in range(Config.num_epochs):
-        # 训练阶段
+        #train
         model.train()
         train_preds, train_labels = [], []
 
@@ -120,13 +120,13 @@ def train():
             train_preds.extend(preds.cpu().numpy())
             train_labels.extend(labels.cpu().numpy())
 
-        # 计算训练指标
+        
         train_acc = accuracy_score(train_labels, train_preds)
         train_precision = precision_score(train_labels, train_preds)
         train_recall = recall_score(train_labels, train_preds)
         train_f1 = f1_score(train_labels, train_preds)
 
-        # 验证阶段（随机取一个批次）
+        #valid
         model.eval()
         valid_preds, valid_labels = [], []
         with torch.no_grad():
@@ -137,23 +137,23 @@ def train():
                 preds = torch.argmax(outputs, dim=1)
                 valid_preds.extend(preds.cpu().numpy())
                 valid_labels.extend(labels.cpu().numpy())
-                break  # 只取一个随机批次
+                break  
 
-        # 计算验证指标
+        
         valid_acc = accuracy_score(valid_labels, valid_preds)
         valid_precision = precision_score(valid_labels, valid_preds)
         valid_recall = recall_score(valid_labels, valid_preds)
         valid_f1 = f1_score(valid_labels, valid_preds)
 
-        # 保存最佳模型
+       
         if train_acc > best_train_acc:
             best_train_acc = train_acc
             torch.save(model.state_dict(), os.path.join(Config.weight_dir, best_weight_file))
         print(f"new best model saved as:{best_weight_file}")
-        # 更新学习率
+        
         scheduler.step()
 
-        # 打印指标
+        
         print(f"\nEpoch {epoch + 1}/{Config.num_epochs}")
         print(
             f"Train | Acc: {train_acc:.4f} | Precision: {train_precision:.4f} | Recall: {train_recall:.4f} | F1: {train_f1:.4f}")
