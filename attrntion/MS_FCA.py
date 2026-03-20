@@ -15,7 +15,6 @@ class Mix(nn.Module):
         out = fea1 * mix_factor.expand_as(fea1) + fea2 * (1 - mix_factor.expand_as(fea2))
         return out
 
-
 class MultiScaleFCAttention(nn.Module):
     def __init__(self, channel, b=1, gamma=2, num_scales=3):
         super(MultiScaleFCAttention, self).__init__()
@@ -24,37 +23,31 @@ class MultiScaleFCAttention(nn.Module):
         self.fc_attention_modules = nn.ModuleList()
         for _ in range(num_scales):
             self.fc_attention_modules.append(FCAttention(channel, b, gamma))
-
-        # 用于融合不同尺度特征的卷积层
         self.fusion_conv = nn.Conv2d(channel * num_scales, channel, 1, padding=0, bias=True)
 
     def forward(self, input):
         outputs = []
         for scale in range(self.num_scales):
-            # 进行不同尺度的下采样和上采样操作
+            
             if scale == 0:
                 x = input
             elif scale == 1:
                 x = nn.functional.interpolate(input, scale_factor=0.5, mode='bilinear', align_corners=False)
             else:
                 x = nn.functional.interpolate(input, scale_factor=2, mode='bilinear', align_corners=False)
-
-            # 应用 FCA 模块处理
+            
             x = self.fc_attention_modules[scale](x)
 
-            # 恢复到原始尺寸
             if scale!= 0:
                 x = nn.functional.interpolate(x, size=input.shape[2:], mode='bilinear', align_corners=False)
 
             outputs.append(x)
-
-        # 融合不同尺度的特征
-        out = torch.cat(outputs, dim=1)#通道拼接
-        out = self.fusion_conv(out)#用卷积降维到跟输入大小一样
+            
+        out = torch.cat(outputs, dim=1)
+        out = self.fusion_conv(out)
 
         return input * out
-
-
+        
 class FCAttention(nn.Module):
     def __init__(self, channel, b=1, gamma=2):
         super(FCAttention, self).__init__()
@@ -84,7 +77,6 @@ class FCAttention(nn.Module):
         return input * out
 
 
-# 输入 N C H W,  输出 N C H W
 if __name__ == '__main__':
     input = torch.rand(1, 64, 256, 256)
     model = MultiScaleFCAttention(channel=64)
