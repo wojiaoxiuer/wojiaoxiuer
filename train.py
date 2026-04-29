@@ -10,8 +10,6 @@ from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_sc
 from model import create_ConvNext
 from tqdm import tqdm
 
-
-
 class Config:
     data_root = "Bra21"
     weight_dir = "weight"
@@ -76,8 +74,8 @@ def collate_fn(batch):
 
 
 def train():
-    
     os.makedirs(Config.weight_dir, exist_ok=True)
+    torch.manual_seed(42)
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     best_weight_file = f"best_{timestamp}.pth"
 
