@@ -2,6 +2,24 @@
 ## Model Architechcture  
 <img width="1074" height="730" alt="model" src="https://github.com/user-attachments/assets/6b4fd19b-1704-4213-bf90-1c080041ce37" />  
 
+## data file structure
+Brats21_train/
+│
+├── 00000/
+│   ├── FLAIR.jpg
+│   └── T1w.jpg
+│   └── T1wCE.jpg
+│   └── T2w.jpg
+│
+├── 00003/
+│   ├── FLAIR.jpg
+│   └── T1w.jpg
+│   └── T1wCE.jpg
+│   └── T2w.jpg
+│
+└──......
+
+
 ## requirement  
 
 ```
