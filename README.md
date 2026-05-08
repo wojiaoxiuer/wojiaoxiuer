@@ -13,8 +13,8 @@ run train.py
 ```
 ## dataset load  
 
->**(https://www.med.upenn.edu/cbica/brats2021/)**
-
+>**(Brats2021:https://www.med.upenn.edu/cbica/brats2021/)**
+>**(USCF-PDGM:https://www.cancerimagingarchive.net/collection/ucsf-pdgm/)**
 <!--
 **wojiaoxiuer/wojiaoxiuer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
