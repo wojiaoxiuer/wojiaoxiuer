@@ -5,7 +5,7 @@
 ## data file structure
 Brats21_train/                               
 │                              
-|---00000/                     
+├── 00000/                     
 │   ├── FLAIR.jpg                   
 │   └── T1w.jpg                
 │   └── T1wCE.jpg               
