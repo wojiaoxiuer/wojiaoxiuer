@@ -10,13 +10,13 @@ Brats21_train/
 │   └── T1w.jpg                
 │   └── T1wCE.jpg               
 │   └── T2w.jpg                    
-│                                        
+│                                                                         
 ├── 00003/                                   
 │   ├── FLAIR.jpg       
 │   └── T1w.jpg
-│   └── T1wCE.jpg
-│   └── T2w.jpg
-│
+│   └── T1wCE.jpg                        
+│   └── T2w.jpg                                   
+│                             
 └──......
 
 
