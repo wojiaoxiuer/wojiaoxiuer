@@ -18,7 +18,25 @@ Brats21_train/
 │   └── T1wCE.jpg                                               
 │   └── T2w.jpg                                   
 │                             
-└──......
+└──......                                       
+                                          
+test/            
+│                          
+├── negative/                     
+│   ├── FLAIR/                    
+│   │   ├──00464.jpg                     
+│   │   └──......                
+│   └── T1w/                      
+│   └── T1wCE/                  
+│   └── T2w/                           
+│                                   
+└── positive/                        
+    ├── FLAIR/                   
+    └── T1w/                
+    └── T1wCE/                 
+    └── T2w/                   
+
+
 ```
 
 ## requirement  
