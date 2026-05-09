@@ -8,7 +8,6 @@ class LRCED(nn.Module):
 
     def __init__(self, dim, drop_path=0., dilation=3, **kwargs):
         super().__init__()  
-        #self.star = Star_Block(dim)
        
         self.dwconv1 = nn.Sequential(
             nn.Conv2d(dim, dim, kernel_size=7, padding=3, dilation=1, groups=dim),  
