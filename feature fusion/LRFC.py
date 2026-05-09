@@ -26,11 +26,11 @@ class LRCED(nn.Module):
 
         self.gamma = nn.Parameter(ls_init_value * torch.ones((dim)), requires_grad=True) if ls_init_value > 0 else None 
         self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()  
-        #self.star = Star_Block(dim)
+        self.star = Star_Block(dim)
     def forward(self, x):
         input = x  
         x = self.dwconv1(x) + x  
-        # x = self.star(x)
+        x = self.star(x)
         x = self.dwconv2(x) + x  
         x = x.permute(0, 2, 3, 1)  
         x = self.pwconv1(x)  
