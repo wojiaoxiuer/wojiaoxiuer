@@ -7,7 +7,7 @@ from model import create_ConvNext
 from tqdm import tqdm
 from torchvision import transforms
 from PIL import Image
-# 使用与训练相同的配置
+
 class Config:
     data_root = "Bra21"
     weight_dir = "weight"
