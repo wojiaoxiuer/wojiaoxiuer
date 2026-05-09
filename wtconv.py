@@ -74,7 +74,6 @@ class _ScaleModule(nn.Module):
 class WTConv2d(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, bias=True, wt_levels=1, wt_type='db1'):
         super(WTConv2d, self).__init__()
-        self.sigmoid = nn.Sigmoid()
         
         assert in_channels == out_channels
 
@@ -168,12 +167,10 @@ class WTConv2d(nn.Module):
         
         assert len(x_ll_in_levels) == 0
         
-        gate_x_tag = self.sigmoid(x_tag)
         
         x = self.base_scale(self.base_conv(x))
 
-        #x = x + x_tag
-        x = x * gate_x_tag
+        x = x + x_tag
 
         if self.do_stride is not None:
             x = self.do_stride(x)
