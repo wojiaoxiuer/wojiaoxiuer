@@ -42,7 +42,7 @@ test/
 ## requirement  
 
 ```
-pip install-r requirement.text
+pip install-r requirement.txt
 ```
 ## train your model  
 ```
