@@ -6,7 +6,7 @@ from functools import partial
 import pywt
 
 def create_wavelet_filter(wave, in_size, out_size, type=torch.float):
-    
+    wave = 'haar'
     w = pywt.Wavelet(wave)
     
     dec_hi = torch.tensor(w.dec_hi[::-1], dtype=type)
