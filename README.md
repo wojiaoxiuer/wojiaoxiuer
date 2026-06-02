@@ -1,6 +1,7 @@
+
 # Hi there is readme👋
 ## Model Architechcture  
-<img width="1074" height="730" alt="model" src="https://github.com/user-attachments/assets/6b4fd19b-1704-4213-bf90-1c080041ce37" />  
+<img width="3600" height="2025" alt="ppt画图_02(2)" src="https://github.com/user-attachments/assets/72374c33-cbbc-4b1b-94f2-730f22173045" />  
 
 ## data file structure
 ```
